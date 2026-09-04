@@ -1,4 +1,4 @@
-# 2026-NYC-20
+# 2026-NYC-20 | PerScholas 
 -
 Git learning
 
