@@ -1,4 +1,4 @@
-[![Per Scholas](per_scholas_logo.png)](https://www.perscholas.org) 
+[![Per Scholas](miscellaneous/per_scholas_logo.png)](https://www.perscholas.org) 
 
 # 2026-NYC-20 | PerScholas AI Native Business Intelligence & Data Analytics
 
