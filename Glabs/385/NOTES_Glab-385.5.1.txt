@@ -1,0 +1,67 @@
+NOTES - GLAB 385.5.1 - Convert Between Two Specific Time Zones
+Last worked on: 2026-09-16
+
+FILES
+-----
+Glabs/385/ZuberiDaley_Glab-385.5.1.py   <- the submission file (working, runs clean)
+Glabs/GLAB 385.5.1 Convert Between Two Specific Time Zones.ipynb   <- the lab handout
+
+
+CURRENT STATUS
+--------------
+The .py file is finished and matches the lab. Running it prints:
+
+    2022-01-01 07:30:45-05:00
+
+That is the correct answer: noon UTC on Jan 1 is 7:30 AM EST in New York.
+
+
+WHAT WAS FIXED (these were typos in my copy, not in the lab)
+------------------------------------------------------------
+1. Line 1 was a syntax error. The bare filename "ZuberiDaley_Glab-385.5.1.py"
+   was sitting there as code, and Python tried to parse it as arithmetic
+   (name minus 385.5 dot 1 dot py). It is now a # comment.
+
+2. "return dt1" was changed to "return dt". There is no variable named dt1,
+   so every call to the function raised NameError.
+
+
+THE ONE THING WORTH REMEMBERING FROM THIS LAB
+---------------------------------------------
+The lab tells you to attach the source timezone like this:
+
+    dt = dt.replace(tzinfo=from_tz)
+
+That is what the submission uses, and it is correct for this lab's example.
+But it only works because the source zone here is UTC.
+
+Why: pytz's UTC is a single fixed object with one permanent offset, so
+replace() grabs the right thing. Most other zones instead carry a whole table
+of historical offsets, and replace() silently grabs the FIRST entry in that
+table, which is Local Mean Time from the 1800s.
+
+So if you convert FROM "America/New_York" instead of UTC, replace() gives you
+an offset of -04:56 instead of -05:00. Four minutes off, and it fails silently.
+
+The correct general-purpose version is:
+
+    dt = from_tz.localize(dt)
+
+localize() picks the offset that was actually in effect on that date,
+including daylight saving time. Use replace() only when the source is UTC.
+
+Do NOT change the submission to localize() -- the lab's own instructions and
+its explanation cell both specify replace(), so the graded file should match.
+
+
+PICK UP HERE
+------------
+- The lab itself is done. Nothing outstanding on 385.5.1.
+- Open question I never got an answer on: do you want a short comment added
+  inside the .py noting the localize() caveat above, or leave the file
+  matching the lab exactly? Current file has no such comment.
+- sql_test.py (repo root) was pushed along with this, though it is unrelated
+  to the lab. Heads up: line 13 has "print = initials", which overwrites the
+  built-in print function. Every print() after that line will crash with
+  TypeError: 'str' object is not callable. Looks like a leftover debug line
+  that should just be deleted. Not fixed yet.
