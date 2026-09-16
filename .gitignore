@@ -1,0 +1,8 @@
+# Virtual environments - never commit these
+.venv/
+.venv-1/
+myenv/
+
+# Python cache files
+__pycache__/
+*.pyc
