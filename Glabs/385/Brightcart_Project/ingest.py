@@ -1,5 +1,5 @@
 import os, sys
-
+# what is args?  Its means something related to system/command line arguments 
 args = sys.argv[1:] #everything after the script name
 date = args[0] if args else input("Date (YYYY-MM-DD): ")
 
